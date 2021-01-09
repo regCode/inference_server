@@ -3,13 +3,18 @@ from flask import request, jsonify, make_response
 import numpy as np
 import pickle
 
+
+def load_model():
+    return pickle.load(open(model_file, 'rb'))
+
 app = Flask(__name__)
 model_file = 'random_forest_regresor_prostate_cancer.pickle'
-model = None
+model = load_model()
+
 
 @app.route("/")
 def home():
-    page ="""
+    page = """
         <h1>Hello this is the API to consume the cancer lpa prediction model</h1>
         <p>You can access to any of our two endpoints</p>
         <ul>
@@ -18,6 +23,7 @@ def home():
         </ul>
     """
     return page
+
 
 @app.route("/predict_single")
 def predict_single():
@@ -59,7 +65,6 @@ def predict_lpsa():
     else:
         return make_response(jsonify({"message": "Request body must be JSON"}), 400)
 
-if __name__ == '__main__':
-    model = pickle.load(open(model_file, 'rb'))
-    app.run(debug=True)
 
+if __name__ == '__main__':
+    app.run(debug=True)
