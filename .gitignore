@@ -2,3 +2,5 @@
 
 request.py
 request_test.json
+__pycache__/
+inference_server/

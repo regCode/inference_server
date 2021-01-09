@@ -7,6 +7,17 @@ app = Flask(__name__)
 model_file = 'random_forest_regresor_prostate_cancer.pickle'
 model = None
 
+@app.route("/")
+def home():
+    page ="""
+        <h1>Hello this is the API to consume the cancer lpa prediction model</h1>
+        <p>You can access to any of our two endpoints</p>
+        <ul>
+            <li>/predict_single</li>
+            <li>/predict_lpsa</li>
+        </ul>
+    """
+    return page
 
 @app.route("/predict_single")
 def predict_single():
